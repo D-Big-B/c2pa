@@ -76,13 +76,15 @@ app.post('/verify', uploadVerify.single('fileInput'), (req, res) => {
 });
 
 app.post('/add', uploadAdd.single('fileInput'), (req, res) => {
-    const command = 'c2patool Update/imageAdd.jpg -m sample/test.json -o signed_image.jpg';
+    // res.send("file upload")
+
+    const command = 'c2patool uploads/imageAdd.jpg -m test/test.json -f -o signed_image.jpg';
 
     exec(command, (error, stdout, stderr) => {
-    if (!error && !stderr) {
-        res.send(`${stdout}`);
+    if (!error && !stderr) { 
+        res.send(`${stdout}`); 
     } 
-    
+    console.log(error.message)
     res.redirect('/error')
 
     });
@@ -100,7 +102,7 @@ app.post('/update', uploadUpdate.fields([{ name: 'originalAsset', maxCount: 1 },
     if (!error && !stderr) {
         res.send(`${stdout}`);
     } 
-    console.log("Error" , error.message)
+   
     res.redirect('/error')
  
     });
