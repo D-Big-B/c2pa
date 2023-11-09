@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C2PA Tool</title>
+    <link rel="stylesheet" href="./style.css">
+    <script src="./app.js"></script>
+</head>
+<body>
+    <div class="verify-asset">
+        <h2>Verify your asset (Select Photo or Video)</h2>
+        <form action="/verify" method="post" enctype="multipart/form-data">
+            <input type="file" name="fileInput" accept="image/*, video/*">
+            <input type="submit" value="Upload">
+        </form>
+    </div>
+    <div class="certificate-asset">
+        <h2>Add certificate to your asset (Select Photo or Video)</h2>
+        <form action="/add" method="post" enctype="multipart/form-data">
+            <input type="file" name="fileInput" accept="image/*, video/*">
+            <input type="submit" value="Upload">
+        </form>
+    </div>
+    <div class="update-ceritificate-asset">
+        <h2>Upload originial Asset (Select Photo or Video)</h2>
+        <form action="/update" method="post" enctype="multipart/form-data">
+            <label for="originalAsset">Original Asset :</label>
+            <input type="file" name="originalAsset" accept="image/*, video/*" required>
+            
+            <label for="updatedAsset">Updated Asset :</label>
+            <input type="file" name="updatedAsset" accept="image/*, video/*" required>
+            
+            <input type="submit" value="Upload">
+        </form>
+    </div>
+</body>
+</html>
