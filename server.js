@@ -2,7 +2,7 @@ const express = require("express");
 const path = require("path");
 const multer = require('multer');
 const { exec } = require('child_process');
-
+const {helperFnAdd, helperFnUpdate} = require("./helper")
 
 const app = express();
 app.set("views", path.join(__dirname, "views"));
@@ -12,7 +12,6 @@ app.set("view engine", "ejs");
 
 // set static folder
 app.use(express.static(path.join(__dirname, "views")));
-
 
 const storageVerify = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -79,7 +78,8 @@ app.post('/add', uploadAdd.single('fileInput'), (req, res) => {
     // res.send("file upload")
 
     const command = 'c2patool uploads/imageAdd.jpg -m test/test.json -f -o signed_image.jpg';
-
+    const {name, label} = req.body
+    helperFnAdd(name, label)
     exec(command, (error, stdout, stderr) => {
     if (!error && !stderr) { 
         res.send(`${stdout}`); 
@@ -87,7 +87,7 @@ app.post('/add', uploadAdd.single('fileInput'), (req, res) => {
     console.log(error.message)
     res.redirect('/error')
 
-    });
+    })
 
 });
 
@@ -97,7 +97,9 @@ app.post('/update', uploadUpdate.fields([{ name: 'originalAsset', maxCount: 1 },
 
 
     const command = `c2patool uploads/${image2.filename} -p uploads/${image1.filename} -m test/test.json -f -o signed_image.jpg`; 
+    const {name, label, actions} = req.body
 
+    helperFnUpdate(name, label, actions)
     exec(command, (error, stdout, stderr) => {
     if (!error && !stderr) {
         res.send(`${stdout}`);
@@ -108,6 +110,7 @@ app.post('/update', uploadUpdate.fields([{ name: 'originalAsset', maxCount: 1 },
     });
 
 });
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
