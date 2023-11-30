@@ -76,6 +76,7 @@ app.post('/verify', uploadVerify.single('fileInput'), (req, res) => {
 
 app.post('/add', uploadAdd.single('fileInput'), (req, res) => {
     // res.send("file upload")
+    console.log("add route hit")
 
     const command = 'c2patool uploads/imageAdd.jpg -m test/test.json -f -o signed_image.jpg';
     const {name, label} = req.body
