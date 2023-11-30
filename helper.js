@@ -1,6 +1,6 @@
 
 const fs = require('fs').promises
-const filePath = 'test/testcheck.json'
+const filePath = 'test/test.json'
 const helperFnAdd = async(name = "John Doe", label="stds.schema-org.CreativeWork" )=>{
 
     const jsonFile = `
